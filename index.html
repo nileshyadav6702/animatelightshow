@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <title>animated light show</title>
+</head>
+<body>
+    <div class="wrapper">
+        <button>Start</button>
+
+    </div>
+    <section class="sec">
+    </section>
+    <script>
+        for(let i=0;i<=300;i++){
+            let box=document.createElement('div')
+            box.classList.add('box')
+            // box.style.opacity=0
+            box.setAttribute('data',i)
+            box.style.filter=`hue-rotate(${i*50}deg)`
+            document.querySelector('.sec').appendChild(box)
+        }
+        let ids=[]
+
+        function animate(){
+            let boxes=document.querySelectorAll('.box')
+            let box=boxes[Math.floor(Math.random()*boxes.length)+1]
+            !ids.includes(box.getAttribute('data'))?ids.push(box.getAttribute('data')):''
+            box.classList.add('animate')
+            box.style.opacity='1'
+            if(ids.length==300){
+                clearInterval(time)
+            }
+        }
+        document.querySelector('.wrapper button').addEventListener('click',(e)=>{
+            document.querySelector('.wrapper').style.transform='translateY(-100%)'
+            let time=setInterval(animate,100)
+        })
+    </script>
+</body>
+</html>
